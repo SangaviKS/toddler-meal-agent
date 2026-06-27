@@ -27,6 +27,20 @@ def export_meal_plan_html(
         dict with success status and file path
     """
     try:
+        # Handle case where weekly_plan is passed as a flat dict without 'weekly_plan' key
+        if "weekly_plan" not in weekly_plan and any(
+            day in weekly_plan for day in
+            ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        ):
+            weekly_plan = {"weekly_plan": weekly_plan}
+
+        # Handle case where grocery_list is passed as a flat dict without 'grocery_list' key
+        if "grocery_list" not in grocery_list and any(
+            cat in grocery_list for cat in
+            ["Fruits", "Vegetables", "Protein", "Dairy", "Grains", "Pantry"]
+        ):
+            grocery_list = {"grocery_list": grocery_list}
+
         plan = weekly_plan.get("weekly_plan", {})
         grocery = grocery_list.get("grocery_list", {})
         allergies_str = ", ".join(allergies) if allergies else "None"
@@ -35,7 +49,6 @@ def export_meal_plan_html(
         output_path = os.path.join(
             os.path.expanduser("~"), "Downloads", filename
         )
-
         days = ["Monday", "Tuesday", "Wednesday",
                 "Thursday", "Friday", "Saturday", "Sunday"]
 

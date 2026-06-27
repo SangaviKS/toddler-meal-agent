@@ -156,10 +156,39 @@ def get_weekly_meal_plan(
 
     # Filter out allergens
     def is_safe(meal: str) -> bool:
-        return not any(
-            allergen.lower() in meal.lower()
-            for allergen in allergies
-        )
+        meal_lower = meal.lower()
+    
+        # Direct allergen match
+        for allergen in allergies:
+            allergen_lower = allergen.lower()
+        
+            # Direct match
+            if allergen_lower in meal_lower:
+                return False
+        
+            # Expanded allergen mapping
+            allergen_expansions = {
+                "dairy": ["milk", "cheese", "yogurt", "cream", "butter", 
+                        "whey", "lactose", "curd"],
+                "peanuts": ["peanut", "peanuts", "groundnut"],
+                "peanut": ["peanut", "peanuts", "groundnut"],
+                "eggs": ["egg", "eggs"],
+                "egg": ["egg", "eggs"],
+                "gluten": ["wheat", "bread", "pasta", "flour", "cracker",
+                        "cereal", "oat", "naan", "tortilla", "pancake"],
+                "nuts": ["almond", "cashew", "walnut", "pecan", "pistachio",
+                        "hazelnut", "macadamia"],
+                "soy": ["soy", "tofu", "edamame", "miso"],
+                "fish": ["fish", "salmon", "tuna", "cod", "tilapia"],
+                "shellfish": ["shrimp", "crab", "lobster", "clam", "oyster"],
+            }
+        
+            if allergen_lower in allergen_expansions:
+                for expanded in allergen_expansions[allergen_lower]:
+                    if expanded in meal_lower:
+                        return False
+    
+        return True
 
     # Prioritize preferred foods
     def has_preference(meal: str) -> bool:
@@ -208,15 +237,35 @@ def get_grocery_list(age_months: int, allergies: list[str]) -> dict:
     }
 
     # Filter out allergens
+    allergen_expansions = {
+        "dairy": ["milk", "cheese", "yogurt", "cream", "butter"],
+        "peanuts": ["peanut", "peanuts"],
+        "peanut": ["peanut", "peanuts"],
+        "eggs": ["egg", "eggs"],
+        "egg": ["egg", "eggs"],
+        "gluten": ["wheat", "bread", "pasta", "oatmeal", "crackers", "rice cakes"],
+        "nuts": ["almond", "cashew", "walnut"],
+        "soy": ["soy", "tofu"],
+        "fish": ["fish", "salmon", "tuna"],
+    }
+
+    def is_item_safe(item: str) -> bool:
+        item_lower = item.lower()
+        for allergen in allergies:
+            allergen_lower = allergen.lower()
+            if allergen_lower in item_lower:
+                return False
+            if allergen_lower in allergen_expansions:
+                for expanded in allergen_expansions[allergen_lower]:
+                    if expanded in item_lower:
+                        return False
+        return True
+
     filtered = {}
     for category, items in base_items.items():
-        safe_items = [
-            item for item in items
-            if not any(allergen.lower() in item.lower() for allergen in allergies)
-        ]
+        safe_items = [item for item in items if is_item_safe(item)]
         if safe_items:
             filtered[category] = safe_items
-
     return {"grocery_list": filtered, "allergies_excluded": allergies}
 
 
