@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
 from toddler_agent.security import validate_and_sanitize_request
+from toddler_agent.export_tool import export_meal_plan_html
 
 load_dotenv()
 
@@ -92,10 +93,16 @@ root_agent = Agent(
         1. Call get_weekly_meal_plan with age, allergies, and preferences
         2. Then call get_grocery_list with the resulting plan
         3. Present both the plan and grocery list clearly
+
+        When a parent asks to save, download, or export the meal plan:
+        1. Make sure you have the weekly plan and grocery list already generated
+        2. Call export_meal_plan_html with age, allergies, weekly plan, and grocery list
+        3. Tell the parent the file has been saved to their Downloads folder
         
         Be warm, reassuring, and parent-friendly in your tone.
         Never suggest a food without checking its safety first.
         Always prioritize child safety above all else.
+
     """,
-    tools=[check_snack_safety, mcp_toolset],
+    tools=[check_snack_safety, mcp_toolset, export_meal_plan_html],
 )
