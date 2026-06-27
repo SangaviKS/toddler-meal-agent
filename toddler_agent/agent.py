@@ -2,14 +2,29 @@ import os
 from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
+from toddler_agent.security import validate_and_sanitize_request
 
 load_dotenv()
 
 def check_snack_safety(food_item: str, age_months: int, allergies: list[str]) -> dict:
     """
     Checks if a snack is safe for a toddler based on age and allergies.
-    Returns safety status and reason.
+    Validates all inputs before processing.
     """
+    # Security: validate and sanitize all inputs
+    valid, result = validate_and_sanitize_request(
+        age_months=age_months,
+        allergies=allergies,
+        food_item=food_item
+    )
+    if not valid:
+        return {"safe": False, "reason": result["error"]}
+
+    # Use sanitized values
+    age_months = result["age_months"]
+    allergies = result["allergies"]
+    food_item = result["food_item"]
+
     choking_hazards = {
         12: ["grapes", "nuts", "raw carrots", "popcorn", "hard candy", "whole blueberries"],
         18: ["nuts", "popcorn", "hard candy"],
