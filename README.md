@@ -149,7 +149,7 @@ Then open http://127.0.0.1:8000
 ## Example Interactions
 
 ### 🍇 Safety Check + Weekly Meal Plan + Export (All-in-One)
-> *"My son just turned 12 months old. He's allergic to peanuts and dairy, and he loves sweet potato and banana. Can you check if whole grapes are safe for him, create a weekly meal plan, and save it as a file I can print?"*
+> *"My 12-month-old toddler is allergic to peanuts and dairy and loves sweet potato and banana. Can you check if grapes are safe, put together a weekly meal plan, and save it somewhere I can print it?"*
 
 **What the agent does:**
 1. 🔍 Calls `check_snack_safety` → ⚠️ Flags whole grapes as a choking hazard for 12-month-olds and suggests quartering them
@@ -161,16 +161,16 @@ Then open http://127.0.0.1:8000
 ---
 
 ### 🍌 Simple Snack Suggestion
-> *"My daughter is 14 months old, allergic to peanuts and loves bananas. What snack can I give her?"*
+> *"My toddler is allergic to peanuts and loves bananas. What snack can I give them?"*
 
 **What the agent does:**
-1. 🔍 Calls `check_snack_safety` → ✅ Confirms sliced bananas are safe for 14 months
+1. 🔍 Calls `check_snack_safety` → ✅ Confirms sliced bananas are safe and age-appropriate
 2. 💬 Explains why bananas are age-appropriate, nutritious, and allergy-safe
 
 ---
 
 ### 🚨 Choking Hazard Detection
-> *"My son is 10 months old. Can he eat whole grapes?"*
+> *"My young toddler wants to eat whole grapes. Is that safe?"*
 
 **What the agent does:**
 1. 🔍 Calls `check_snack_safety` → ⚠️ Flags whole grapes as a choking hazard under 12 months
