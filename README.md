@@ -60,6 +60,7 @@ graph TD
     D --> F[get_weekly_meal_plan\n7-day allergy-filtered plan]
     D --> G[get_grocery_list\nCategorized shopping list]
     C --> I[✅ Safe Food Suggestion]
+    E --> I
     F --> I
     G --> I
     H --> I
