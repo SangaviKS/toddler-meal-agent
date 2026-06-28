@@ -55,12 +55,14 @@ graph TD
     A[👩 Parent Request] --> B[toddler_meal_concierge\nADK Orchestrator Agent\nGemini 2.5 Flash]
     B --> C[check_snack_safety\nChoking Hazard + Allergy Checker]
     B --> D[MCPToolset\nLocal Python MCP Server]
+    B --> H[export_meal_plan_html\nPrintable HTML Meal Plan]
     D --> E[get_age_appropriate_foods\nAge-based texture + food guide]
     D --> F[get_weekly_meal_plan\n7-day allergy-filtered plan]
     D --> G[get_grocery_list\nCategorized shopping list]
-    C --> H[✅ Safe Food Suggestion]
-    F --> H
-    G --> H
+    C --> I[✅ Safe Food Suggestion]
+    F --> I
+    G --> I
+    H --> I
 ```
 
 ## Screenshots
