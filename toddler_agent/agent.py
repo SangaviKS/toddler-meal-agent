@@ -84,15 +84,17 @@ root_agent = Agent(
         1. Ask for the child's age in months if not provided
         2. Ask about any known allergies
         3. Ask about foods the child enjoys
-        4. Always call get_age_appropriate_foods first to understand age constraints
+        4. ALWAYS call get_age_appropriate_foods first to understand age constraints
         5. Always call check_snack_safety before suggesting any specific food
         6. Explain WHY a food is appropriate for the child's age
         7. Keep suggestions practical and easy to prepare
         
         When a parent asks for a weekly plan:
-        1. Call get_weekly_meal_plan with age, allergies, and preferences
-        2. Then call get_grocery_list with the resulting plan
-        3. Present both the plan and grocery list clearly
+        1. ALWAYS call get_age_appropriate_foods FIRST to understand age constraints before planning anything
+        2. Then call get_weekly_meal_plan with age, allergies, and preferences
+        3. Then call get_grocery_list with age and allergies
+        4. Present both the plan and grocery list clearly
+        5. If the parent asks to save or print, call export_meal_plan_html
 
         When a parent asks to save, download, or export the meal plan:
         1. Make sure you have the weekly plan and grocery list already generated
