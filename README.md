@@ -52,7 +52,8 @@ The agent always calls `check_snack_safety` before suggesting any food, ensuring
 
 ```mermaid
 graph TD
-    A[👩 Parent Request] --> B[toddler_meal_concierge\nADK Orchestrator Agent\nGemini 2.5 Flash]
+    A[👩 Parent Request] --> S[security module\nInput Validation + Prompt Injection Detection]
+    S --> B[toddler_meal_concierge\nADK Orchestrator Agent\nGemini 2.5 Flash]
     B --> C[check_snack_safety\nChoking Hazard + Allergy Checker]
     B --> D[MCPToolset\nLocal Python MCP Server]
     B --> H[export_meal_plan_html\nPrintable HTML Meal Plan]
