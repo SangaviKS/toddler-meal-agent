@@ -22,11 +22,11 @@ Searching the internet or asking a generic chatbot gives inconsistent, unverifie
 - 🔒 **Security layer** — input validation and prompt injection protection
 - 🖥️ **Web UI** — clean browser interface via ADK web server
 
-## Demo Video (Placeholder)
+## Demo Video
 
-[![Toddler Meal Concierge Agent Demo](https://img.youtube.com/vi/YOUR_YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID)
+[![Toddler Meal Concierge Agent Demo](https://img.youtube.com/vi/-GoCQNNqMWg/0.jpg)](https://youtu.be/-GoCQNNqMWg)
 
-*Click to watch the full demo on YouTube — replace with actual video ID after recording*
+*Click to watch the full demo on YouTube*
 
 ## Why Agents?
 
